@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import { ArrowLeft, ArrowLeftCircle } from 'lucide-react';
 
+export const dynamic = "force-dynamic";
+
 interface PokemonData {
   id: number;
   name: string;
