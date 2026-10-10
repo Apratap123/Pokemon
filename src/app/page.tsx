@@ -2,8 +2,6 @@ import PokemonList from '@/components/PokemonList';
 import { Suspense } from 'react';
 
 async function PokemonFetcher() {
-  // We'll fetch the first 151 Pokemon, it's classic and works well for a demo
-  // Fetching it server side to be fast
   const res = await fetch('https://pokeapi.co/api/v2/pokemon?limit=151');
   const data = await res.json();
   return <PokemonList initialPokemon={data.results} />;

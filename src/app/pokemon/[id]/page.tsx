@@ -37,7 +37,6 @@ interface PokemonData {
   weight: number;
 }
 
-// We can define type colors for better visual flair
 const typeColors: Record<string, string> = {
   normal: 'bg-gray-400',
   fire: 'bg-orange-500',
@@ -62,9 +61,8 @@ const typeColors: Record<string, string> = {
 import { Suspense } from 'react';
 
 async function PokemonDataFetcher({ id }: { id: string }) {
-  // fetching directly on the server ensures good performance and SEO
   const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
-  
+
   if (!res.ok) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -82,8 +80,8 @@ async function PokemonDataFetcher({ id }: { id: string }) {
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-900 py-10 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
-        <Link 
-          href="/" 
+        <Link
+          href="/"
           className="inline-flex items-center text-sm font-medium text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white mb-8 transition-colors"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
@@ -91,12 +89,11 @@ async function PokemonDataFetcher({ id }: { id: string }) {
         </Link>
 
         <div className="bg-white dark:bg-slate-800 rounded-3xl shadow-xl overflow-hidden">
-          {/* Header section with background based on primary type */}
           <div className={`${typeColors[pokemon.types[0].type.name] || 'bg-slate-500'} h-32 md:h-48 relative`}>
             <div className="absolute -bottom-16 md:-bottom-24 left-1/2 transform -translate-x-1/2">
               <div className="w-32 h-32 md:w-48 md:h-48 rounded-full bg-white dark:bg-slate-800 p-2 shadow-lg flex items-center justify-center">
-                <img 
-                  src={imageUrl} 
+                <img
+                  src={imageUrl}
                   alt={pokemon.name}
                   className="w-full h-full object-contain drop-shadow-md"
                 />
@@ -112,10 +109,9 @@ async function PokemonDataFetcher({ id }: { id: string }) {
               #{pokemon.id.toString().padStart(3, '0')}
             </p>
 
-            {/* Types */}
             <div className="flex justify-center gap-3 mb-10">
               {pokemon.types.map((t) => (
-                <span 
+                <span
                   key={t.type.name}
                   className={`${typeColors[t.type.name] || 'bg-slate-500'} text-white px-4 py-1.5 rounded-full text-sm font-bold uppercase tracking-wider shadow-sm`}
                 >
@@ -125,7 +121,6 @@ async function PokemonDataFetcher({ id }: { id: string }) {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
-              {/* Left Column: Stats */}
               <div className="bg-slate-50 dark:bg-slate-700/50 rounded-2xl p-6">
                 <h2 className="text-xl font-bold mb-4 flex items-center text-slate-900 dark:text-white">
                   Base Stats
@@ -138,7 +133,7 @@ async function PokemonDataFetcher({ id }: { id: string }) {
                         <span className="font-mono">{stat.base_stat}</span>
                       </div>
                       <div className="w-full bg-slate-200 dark:bg-slate-600 rounded-full h-2">
-                        <div 
+                        <div
                           className={`${typeColors[pokemon.types[0].type.name] || 'bg-blue-500'} h-2 rounded-full`}
                           style={{ width: `${Math.min(100, (stat.base_stat / 255) * 100)}%` }}
                         />
@@ -148,9 +143,7 @@ async function PokemonDataFetcher({ id }: { id: string }) {
                 </div>
               </div>
 
-              {/* Right Column: Details */}
               <div className="space-y-8">
-                {/* Physical info */}
                 <div className="bg-slate-50 dark:bg-slate-700/50 rounded-2xl p-6 grid grid-cols-2 gap-4">
                   <div>
                     <h3 className="text-sm font-semibold text-slate-500 dark:text-slate-400 mb-1">Height</h3>
@@ -162,12 +155,11 @@ async function PokemonDataFetcher({ id }: { id: string }) {
                   </div>
                 </div>
 
-                {/* Abilities */}
                 <div className="bg-slate-50 dark:bg-slate-700/50 rounded-2xl p-6">
                   <h2 className="text-xl font-bold mb-4 text-slate-900 dark:text-white">Abilities</h2>
                   <div className="flex flex-wrap gap-2">
                     {pokemon.abilities.map((a) => (
-                      <span 
+                      <span
                         key={a.ability.name}
                         className="bg-white dark:bg-slate-600 px-3 py-1 rounded-lg text-sm font-medium capitalize border border-slate-200 dark:border-slate-500 shadow-sm"
                       >
@@ -179,12 +171,11 @@ async function PokemonDataFetcher({ id }: { id: string }) {
               </div>
             </div>
 
-            {/* Moves section - just showing a few so it doesn't take up the entire page */}
             <div className="mt-8 bg-slate-50 dark:bg-slate-700/50 rounded-2xl p-6 text-left">
               <h2 className="text-xl font-bold mb-4 text-slate-900 dark:text-white">Notable Moves</h2>
               <div className="flex flex-wrap gap-2">
                 {pokemon.moves.slice(0, 15).map((m) => (
-                  <span 
+                  <span
                     key={m.move.name}
                     className="bg-white dark:bg-slate-600 px-3 py-1 rounded-lg text-sm capitalize border border-slate-200 dark:border-slate-500"
                   >

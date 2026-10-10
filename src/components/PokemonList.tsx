@@ -16,7 +16,6 @@ interface PokemonListProps {
 export default function PokemonList({ initialPokemon }: PokemonListProps) {
   const [searchTerm, setSearchTerm] = useState('');
 
-  // filter pokemon based on the search term, converting to lowercase for better matching
   const filteredPokemon = initialPokemon.filter((p) =>
     p.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -38,8 +37,7 @@ export default function PokemonList({ initialPokemon }: PokemonListProps) {
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6">
         {filteredPokemon.length > 0 ? (
-          filteredPokemon.map((pokemon, index) => {
-            // we can extract the ID from the url to get the image
+          filteredPokemon.map((pokemon) => {
             const id = pokemon.url.split('/').filter(Boolean).pop();
             const imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
 
@@ -50,7 +48,6 @@ export default function PokemonList({ initialPokemon }: PokemonListProps) {
                 className="group flex flex-col items-center bg-white dark:bg-slate-800 rounded-2xl p-4 shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100 dark:border-gray-700"
               >
                 <div className="relative w-full aspect-square bg-gray-50 dark:bg-slate-700 rounded-xl mb-4 p-4 overflow-hidden">
-                  {/* using a standard img tag here instead of next/image to avoid configuring external domains, and it's simpler */}
                   <img
                     src={imageUrl}
                     alt={pokemon.name}
